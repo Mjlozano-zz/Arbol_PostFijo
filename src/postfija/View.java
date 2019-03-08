@@ -8,8 +8,11 @@ package postfija;
 import data.Methods;
 import data.Node;
 import data.Node;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Stack;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
@@ -40,6 +43,7 @@ public class View extends javax.swing.JFrame {
     public View() {
         initComponents();
         setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -204,6 +208,7 @@ public class View extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/family-tree.png"))); // NOI18N
         jLabel2.setText("Arbol");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -228,7 +233,7 @@ public class View extends javax.swing.JFrame {
         tree.setLayout(treeLayout);
         treeLayout.setHorizontalGroup(
             treeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 606, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
         treeLayout.setVerticalGroup(
             treeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +337,7 @@ public class View extends javax.swing.JFrame {
                             } else {
                                 /*
                                 Se crea el arbol a partir de una pila creada anteriormente
-                                */
+                                 */
                                 Node der = pilan.pop();
                                 Node izq = pilan.pop();
                                 DefaultMutableTreeNode iz = noditos.pop();
