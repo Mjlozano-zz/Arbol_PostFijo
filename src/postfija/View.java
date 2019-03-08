@@ -21,7 +21,8 @@ import javax.swing.tree.DefaultTreeModel;
  * @author Jesus Lozano
  */
 public class View extends javax.swing.JFrame {
-    JFrame f;  
+
+    JFrame f;
     Methods access = new Methods();
     boolean temp = true;
     boolean c = true;
@@ -95,7 +96,14 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        limpiar.setBackground(new java.awt.Color(104, 159, 56));
+        limpiar.setForeground(new java.awt.Color(255, 255, 255));
+        limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/wiping-swipe-for-floors (2).png"))); // NOI18N
         limpiar.setText("Clear");
+        limpiar.setBorder(null);
+        limpiar.setBorderPainted(false);
+        limpiar.setContentAreaFilled(false);
+        limpiar.setDoubleBuffered(true);
         limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarActionPerformed(evt);
@@ -108,7 +116,7 @@ public class View extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(limpiar)
+                .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(expre, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -118,16 +126,12 @@ public class View extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(expre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(calcular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(limpiar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(expre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(calcular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(limpiar))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -284,7 +288,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_expreActionPerformed
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
-        
+        tree.removeAll();
         if (expre.getText().equals("")) {
             JOptionPane.showInternalMessageDialog(null, "Ingrese una expresion aritmetica para continuar");
         } else {
@@ -327,17 +331,18 @@ public class View extends javax.swing.JFrame {
                 }
 
                 //Se muestra el arbol
-                showTree();
-
+                DefaultMutableTreeNode top = noditos.pop();
+                JTree jt = new JTree(top);
+                showTree(jt);
+                
             } catch (Exception e) {
                 JOptionPane.showInternalMessageDialog(null, "No se pudo completar la operacion");
             }
         }
 
     }//GEN-LAST:event_calcularActionPerformed
-    private void showTree() {
-        //DefaultMutableTreeNode top = noditos.pop();     
-        JTree jt = new JTree(noditos.pop());
+
+    private void showTree(JTree jt) { //Muestra el arbol 
         tree.add(jt);
         jt.setSize(277, 322);
         jt.setVisible(true);
@@ -353,7 +358,7 @@ public class View extends javax.swing.JFrame {
         expre.setText("");
         input.setText("");
         result.setText("");
-
+        tree.removeAll();
     }
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
         this.dispose();
