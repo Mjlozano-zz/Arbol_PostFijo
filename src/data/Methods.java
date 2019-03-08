@@ -10,7 +10,7 @@ package data;
  * @author Jesus Lozano
  */
 public class Methods {
-    public Character fragmentar(String expresion, int x) {  //Este metodo separa la expresion en caracteres individuales
+    public Character fragmentar(String expresion, int x) {  //Separa la expresion en caracteres individuales
         Character caracter = expresion.charAt(x);
         return caracter;
     }
@@ -24,7 +24,7 @@ public class Methods {
         }
     }
 
-    public void postOrden(Node raiz){
+    public void postOrden(Node raiz){  //Recorrido PostOrden del arbol
         if(raiz!=null){
             postOrden(raiz.left);
             postOrden(raiz.right);
@@ -32,7 +32,7 @@ public class Methods {
         }
     }
 
-    public String inOrden(Node root){
+    public String inOrden(Node root){ //Recorrido InOrden del arbol
         String expresion = " ";
         if(root!=null){
             inOrden(root.left);

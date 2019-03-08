@@ -329,7 +329,9 @@ public class View extends javax.swing.JFrame {
                                 pilan.push(new Node(iterador, null, null));         //Ingresa los nodos a una pila
                                 noditos.push(new DefaultMutableTreeNode(iterador));
                             } else {
-
+                                /*
+                                Se crea el arbol a partir de una pila creada anteriormente
+                                */
                                 Node der = pilan.pop();
                                 Node izq = pilan.pop();
                                 DefaultMutableTreeNode iz = noditos.pop();
