@@ -10,62 +10,61 @@ package data;
  * @author Jesus Lozano
  */
 public class Methods {
+
+    public static String expresion = "";
+
     public Character fragmentar(String expresion, int x) {  //Separa la expresion en caracteres individuales
         Character caracter = expresion.charAt(x);
         return caracter;
     }
 
-    public boolean isNumeric(String cadena){ //Este metodo verifica si el caracter analizado es un operando o un operador aritmetico
+    public boolean isNumeric(String cadena) { //Este metodo verifica si el caracter analizado es un operando o un operador aritmetico
         try {
             Integer.parseInt(cadena);
             return true;
-        } catch (NumberFormatException nfe){
+        } catch (NumberFormatException nfe) {
             return false;
         }
     }
 
-    public void postOrden(Node raiz){  //Recorrido PostOrden del arbol
-        if(raiz!=null){
+    public void postOrden(Node raiz) {  //Recorrido PostOrden del arbol
+        if (raiz != null) {
             postOrden(raiz.left);
             postOrden(raiz.right);
             System.out.print(raiz.value);
         }
     }
 
-    public String inOrden(Node root){ //Recorrido InOrden del arbol
-        String expresion = " ";
-        if(root!=null){
+    public void inOrden(Node root) { //Recorrido InOrden del arbol
+
+        if (root != null) {
             inOrden(root.left);
-            expresion = expresion+root.value+"";
-            System.out.print(root.value);
+            expresion = expresion + root.value + "";
             inOrden(root.right);
         }
-        return expresion;
+
     }
 
+    public float sumar(float a, float b) {
 
-
-    public float sumar(float a, float b){
-
-        return a+b;
+        return a + b;
     }
 
-    public float restar(float a, float b){
-        
-        return a-b;
+    public float restar(float a, float b) {
+
+        return a - b;
     }
 
-    public float multiplicar(float a, float b){
-        return a*b;
+    public float multiplicar(float a, float b) {
+        return a * b;
     }
 
-    public float dividir(float a, float b){       
-        return a/b;
+    public float dividir(float a, float b) {
+        return a / b;
     }
 
-
-    public float exponencial(float a, float b){
-        float r = (float)Math.pow(a, b);
+    public float exponencial(float a, float b) {
+        float r = (float) Math.pow(a, b);
         return r;
     }
 }

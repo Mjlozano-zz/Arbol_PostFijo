@@ -257,8 +257,8 @@ public class View extends javax.swing.JFrame {
                 .addComponent(input)
                 .addGap(129, 129, 129)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(infija, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(infija)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -278,17 +278,18 @@ public class View extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(4, 4, 4)
                 .addComponent(tree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(input)
-                            .addComponent(jLabel4)))
-                    .addComponent(infija, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(result, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4)
+                            .addComponent(infija)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -356,7 +357,10 @@ public class View extends javax.swing.JFrame {
                 DefaultMutableTreeNode top = noditos.pop();
                 JTree jt = new JTree(top);
                 showTree(jt);
-                infija.setText(access.inOrden(pilan.pop()));
+                access.inOrden(pilan.pop());
+                System.out.println(Methods.expresion);
+                infija.setText(Methods.expresion);
+                Methods.expresion = "";
             } else {
                 JOptionPane.showInternalMessageDialog(null, "No se pudo completar la operacion");
                 clearAll();
@@ -487,7 +491,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JButton calcular;
     private javax.swing.JButton close;
     private javax.swing.JTextField expre;
-    private javax.swing.JLabel infija;
+    public static javax.swing.JLabel infija;
     private javax.swing.JLabel input;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
