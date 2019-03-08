@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package postfija;
+package data;
 
 /**
  *
  * @author Jesus Lozano
  */
 public class Node {
-    char value;
-    Node left = null;
-    Node right = null;
-    Node (Character value, Node left, Node right){
+
+    public char value;
+    public Node left = null;
+    public Node right = null;
+
+    public Node(Character value, Node left, Node right) {
         this.value = value;
         this.left = left;
         this.right = right;

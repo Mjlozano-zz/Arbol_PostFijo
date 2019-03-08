@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package postfija;
+package data;
 
 /**
  *
@@ -42,24 +42,27 @@ public class Methods {
 
 
 
-    public int sumar(int a, int b){
+    public float sumar(float a, float b){
+
         return a+b;
     }
 
-    public int restar(int a, int b){
+    public float restar(float a, float b){
+        
         return a-b;
     }
 
-    public int multiplicar(int a, int b){
+    public float multiplicar(float a, float b){
         return a*b;
     }
 
-    public int dividir(int a, int b){
+    public float dividir(float a, float b){       
         return a/b;
     }
 
 
-    public int exponencial(int a, int b){
-        return a^b;
+    public float exponencial(float a, float b){
+        float r = (float)Math.pow(a, b);
+        return r;
     }
 }
