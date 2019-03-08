@@ -40,7 +40,6 @@ public class View extends javax.swing.JFrame {
     public View() {
         initComponents();
         setLocationRelativeTo(null);
-        clearAll();
     }
 
     /**
@@ -67,10 +66,13 @@ public class View extends javax.swing.JFrame {
         tree = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         input = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        infija = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(50, 50));
         setLocationByPlatform(true);
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(104, 159, 56));
@@ -217,7 +219,7 @@ public class View extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tree.setBackground(new java.awt.Color(255, 255, 255));
@@ -234,7 +236,10 @@ public class View extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Expresion: ");
+        jLabel3.setText("PostFija: ");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("InFija: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,6 +255,10 @@ public class View extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(input)
+                .addGap(129, 129, 129)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(infija, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -271,11 +280,15 @@ public class View extends javax.swing.JFrame {
                 .addComponent(tree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(input))
-                    .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(input)
+                            .addComponent(jLabel4)))
+                    .addComponent(infija, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(result, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -289,58 +302,79 @@ public class View extends javax.swing.JFrame {
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
         tree.removeAll();
+
         if (expre.getText().equals("")) {
             JOptionPane.showInternalMessageDialog(null, "Ingrese una expresion aritmetica para continuar");
         } else {
+            check(expre.getText());
+            if (check(expre.getText())) {
+                String expresion = expre.getText();
 
-            String expresion = expre.getText();
+                try {
+                    for (int i = 0; i < expresion.length(); i++) {
+                        caracteres.add(access.fragmentar(expresion, i));
 
-            try {
-                for (int i = 0; i < expresion.length(); i++) {
-                    caracteres.add(access.fragmentar(expresion, i));
+                        operar();
+                        result.setText(pila.pop().toString());
+                        input.setText(expre.getText());
 
-                    operar();
-                    result.setText(pila.pop().toString());
-                    input.setText(expre.getText());
 
-                    /*
+                        /*
                 Se crea el arbol
-                     */
-                    caracteres.forEach((iterador) -> {
-                        DefaultMutableTreeNode nod = new DefaultMutableTreeNode(iterador);
-                        //Se recorre el Array de caracteres
-                        if ((access.isNumeric("" + iterador))) {
-                            pilan.push(new Node(iterador, null, null));         //Ingresa los nodos a una pila
-                            noditos.push(new DefaultMutableTreeNode(iterador));
-                        } else {
+                         */
+                        caracteres.forEach((iterador) -> {
+                            DefaultMutableTreeNode nod = new DefaultMutableTreeNode(iterador);
+                            //Se recorre el Array de caracteres
+                            if ((access.isNumeric("" + iterador))) {
+                                pilan.push(new Node(iterador, null, null));         //Ingresa los nodos a una pila
+                                noditos.push(new DefaultMutableTreeNode(iterador));
+                            } else {
 
-                            Node der = pilan.pop();
-                            Node izq = pilan.pop();
-                            DefaultMutableTreeNode iz = noditos.pop();
-                            DefaultMutableTreeNode de = noditos.pop();
+                                Node der = pilan.pop();
+                                Node izq = pilan.pop();
+                                DefaultMutableTreeNode iz = noditos.pop();
+                                DefaultMutableTreeNode de = noditos.pop();
 
-                            nod.add(iz);
-                            nod.add(de);
+                                nod.add(de);
+                                nod.add(iz);
 
-                            noditos.push(nod);
+                                noditos.push(nod);
 
-                            pilan.push(new Node(iterador, izq, der));  //Ingresa los nodos al arbol
+                                pilan.push(new Node(iterador, izq, der));  //Ingresa los nodos al arbol
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showInternalMessageDialog(null, "No se pudo completar la operacion");
+                    clearAll();
                 }
 
                 //Se muestra el arbol
                 DefaultMutableTreeNode top = noditos.pop();
                 JTree jt = new JTree(top);
                 showTree(jt);
-                
-            } catch (Exception e) {
+                infija.setText(access.inOrden(pilan.pop()));
+            } else {
                 JOptionPane.showInternalMessageDialog(null, "No se pudo completar la operacion");
+                clearAll();
             }
+
         }
 
     }//GEN-LAST:event_calcularActionPerformed
+
+    private boolean check(String expresion) { //Verifica si hay caracteres no admitidos en la expresion
+        boolean ac = true;
+        for (int i = 0; i < expresion.length(); i++) {
+
+            if (expresion.charAt(i) != '1' && expresion.charAt(i) != '2' && expresion.charAt(i) != '3' && expresion.charAt(i) != '4' && expresion.charAt(i) != '5' && expresion.charAt(i) != '6' && expresion.charAt(i) != '7' && expresion.charAt(i) != '8' && expresion.charAt(i) != '9' && expresion.charAt(i) != '0' && expresion.charAt(i) != '+' && expresion.charAt(i) != '-' && expresion.charAt(i) != '*' && expresion.charAt(i) != '/' && expresion.charAt(i) != '^') {
+                ac = false;
+            }
+        }
+
+        return ac;
+    }
 
     private void showTree(JTree jt) { //Muestra el arbol 
         tree.add(jt);
@@ -349,7 +383,7 @@ public class View extends javax.swing.JFrame {
         jt.setEnabled(true);
     }
 
-    private void clearAll() {
+    private void clearAll() { // Hace limpieza de todos los componentes en general
         caracteres.clear();
         caracteresTemp.clear();
         noditos.clear();
@@ -358,6 +392,7 @@ public class View extends javax.swing.JFrame {
         expre.setText("");
         input.setText("");
         result.setText("");
+        infija.setText("");
         tree.removeAll();
     }
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
@@ -371,7 +406,7 @@ public class View extends javax.swing.JFrame {
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
         clearAll();
     }//GEN-LAST:event_limpiarActionPerformed
-    private void operar() {
+    private void operar() {  //Realiza la operacion correspondiente en la expresion
         for (Character iterador : caracteres) {
 
             String dato = "" + iterador;
@@ -450,10 +485,12 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JButton calcular;
     private javax.swing.JButton close;
     private javax.swing.JTextField expre;
+    private javax.swing.JLabel infija;
     private javax.swing.JLabel input;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

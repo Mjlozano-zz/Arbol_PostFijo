@@ -32,12 +32,15 @@ public class Methods {
         }
     }
 
-    public void inOrden(Node root){
+    public String inOrden(Node root){
+        String expresion = " ";
         if(root!=null){
             inOrden(root.left);
+            expresion = expresion+root.value+"";
             System.out.print(root.value);
             inOrden(root.right);
         }
+        return expresion;
     }
 
 
